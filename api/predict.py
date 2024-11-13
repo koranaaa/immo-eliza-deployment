@@ -12,7 +12,7 @@ def preprocess_input(data, scaler):
     data_df = pd.DataFrame([data])
     
     # Ensure necessary categorical encodings
-    label_encoders = joblib.load(r"C:\Users\Anastasiia\Documents\GitHub\immo-eliza-ml\Cleaned\label_encoders.joblib")
+    label_encoders = joblib.load("models/label_encoders.joblib")
     try:
         data_df['Building condition'] = label_encoders['Building condition'].transform(data_df['Building condition']) + 1
         data_df['Region'] = label_encoders['Region'].transform(data_df['Region']) + 1
@@ -23,7 +23,7 @@ def preprocess_input(data, scaler):
     data_df = pd.get_dummies(data_df, columns=['Property type'])
 
     # Load required columns and ensure consistency
-    required_columns = joblib.load(r"C:\Users\Anastasiia\Documents\GitHub\immo-eliza-ml\Cleaned\required_columns.joblib")
+    required_columns = joblib.load("models/required_columns.joblib")
     for col in required_columns:
         if col not in data_df.columns:
             data_df[col] = 0  # Fill missing columns with 0
@@ -48,8 +48,8 @@ def predict_price(new_data):
     - float: Predicted price for the property.
     """
     # Load trained model and scaler
-    model = joblib.load(r"C:\Users\Anastasiia\Documents\GitHub\immo-eliza-ml\Cleaned\final_xgb_model_advanced.joblib")
-    scaler = joblib.load(r"C:\Users\Anastasiia\Documents\GitHub\immo-eliza-ml\Cleaned\scaler.joblib")
+    model = joblib.load("models/final_xgb_model_advanced.joblib")
+    scaler = joblib.load("models/scaler.joblib")
     
     # Validate and preprocess new data
     processed_data = preprocess_input(new_data, scaler)
