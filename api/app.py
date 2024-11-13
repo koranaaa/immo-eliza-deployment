@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from predict import predict_price, validate_input  # Імпортуємо функції з predict.py
+from predict import predict_price, validate_input  # Import function from predict.py
 import pandas as pd
 
 app = FastAPI()
@@ -21,17 +21,17 @@ async def root():
 
 @app.post("/predict")
 async def get_prediction(data: PropertyData):
-    # Перетворюємо дані на словник для подальшого використання
+    # Сonvert the data into a dictionary for further use
     data_dict = data.dict()
-    print("Received data:", data_dict)  # Відладковий вивід
+    print("Received data:", data_dict)  # Debug output
 
-    # Перевіримо дані за допомогою validate_input
+    # check the data using validate_input
     try:
         validate_input(data_dict)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-    # Отримаємо прогноз за допомогою predict_price
+    # get a forecast using predict_price
     try:
         prediction = predict_price(data_dict)
         return {"prediction": prediction}
