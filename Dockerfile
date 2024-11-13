@@ -24,4 +24,4 @@ EXPOSE 8000
 
 # Run the app
 # Set host to 0.0.0.0 to make it run on the container's network
-CMD ["uvicorn", "api.app:app", "--host=0.0.0.0", "--port=8000"]
+CMD ["uvicorn", "api.app:app", "--host", "0.0.0.0", "--port", "8000"]
