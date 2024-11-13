@@ -1,12 +1,16 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from predict import predict_price, validate_input  # Import function from predict.py
+print("FastAPI imported successfully")
+from pydantic import BaseModel, Field
+
+from predict import predict_price, validate_input # Import function from predict.py
+print("predict module imported successfully")
+
 import pandas as pd
 
 app = FastAPI()
 
 class PropertyData(BaseModel):
-    Number_of_bedrooms: int
+    Number_of_bedrooms: int = Field(..., alias='Number of bedrooms')
     Living_area_m2: int
     Equipped_kitchen: int
     Furnished: int
@@ -23,17 +27,24 @@ async def root():
 async def get_prediction(data: PropertyData):
     # Сonvert the data into a dictionary for further use
     data_dict = data.dict()
+    
+    data_dict= {key.replace('_', ' '):value for key,value in data_dict.items()}
+
     print("Received data:", data_dict)  # Debug output
 
+
     # check the data using validate_input
-    try:
-        validate_input(data_dict)
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
+    #try:
+   #     validate_input(data_dict)
+    #except ValueError as e:
+    #    raise HTTPException(status_code=400, detail=str(e))
+    
+    prediction = predict_price(data_dict)
+    return {"prediction": prediction}
 
     # get a forecast using predict_price
-    try:
-        prediction = predict_price(data_dict)
-        return {"prediction": prediction}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    #try:
+    #    prediction = predict_price(data_dict)
+    #    return {"prediction": prediction}
+    #except Exception as e:
+    #    raise HTTPException(status_code=500, detail=str(e))
