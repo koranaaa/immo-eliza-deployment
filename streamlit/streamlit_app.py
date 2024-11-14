@@ -9,27 +9,27 @@ living_area_m2 = st.number_input("Living Area (m²)", min_value=0)
 equipped_kitchen = st.selectbox("Equipped Kitchen", ["Yes", "No"])
 furnished = st.selectbox("Furnished", ["Yes", "No"])
 swimming_pool = st.selectbox("Swimming Pool", ["Yes", "No"])
-building_condition = st.selectbox("Building Condition", ["To be done up", "To restore", "To renovate", "Good", "As new"])
+building_condition = st.selectbox("Building Condition", ["As new", "Good", "To be done up", "To restore", "To renovate"])
 region = st.selectbox("Region", ["Flanders", "Wallonia", "Brussels"])
 property_type = st.selectbox("Type of Property", ["apartment", "house"])
 
 # Convert selections to expected format
 data = {
-    "Number_of_bedrooms": number_of_bedrooms,
-    "Living_area_m2": living_area_m2,
-    "Equipped_kitchen": 1 if equipped_kitchen == "Yes" else 0,
+    "Number of bedrooms": number_of_bedrooms,  # Change key to match FastAPI expectation
+    "Living area m²": living_area_m2,         # Change key to match FastAPI expectation
+    "Equipped kitchen": 1 if equipped_kitchen == "Yes" else 0,
     "Furnished": 1 if furnished == "Yes" else 0,
-    "Swimming_pool": 1 if swimming_pool == "Yes" else 0,
-    "Building_condition": building_condition,
+    "Swimming pool": 1 if swimming_pool == "Yes" else 0,
+    "Building condition": building_condition,
     "Region": region,
-    "Property_type": property_type
+    "Property type": property_type
 }
 
 # Predict button
 if st.button("Get Prediction"):
     try:
         # Send request to API
-        response = requests.post("http://127.0.0.1:8000/predict", json=data)  # Replace with your deployed API URL
+        response = requests.post("http://127.0.0.1:8000/predict", json=data)  
         if response.status_code == 200:
             prediction = response.json().get("prediction", "Error in prediction")
             st.write(f"Predicted Price: {prediction}")
@@ -37,4 +37,3 @@ if st.button("Get Prediction"):
             st.write("Error in retrieving prediction:", response.json().get("detail"))
     except requests.exceptions.RequestException as e:
         st.write("Connection error with API:", e)
-
