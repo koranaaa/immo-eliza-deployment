@@ -58,7 +58,7 @@ def predict_price(new_data):
     log_price_pred = model.predict(processed_data)
     price_pred = np.expm1(log_price_pred)  # Revert log transformation for prediction
     
-    return price_pred[0]
+    return float(price_pred[0]) 
 
 def validate_input(data):
     """
@@ -100,3 +100,22 @@ if __name__ == "__main__":
         print(f"Estimated Price: {predicted_price:,.2f}")
     except ValueError as e:
         print(f"Input Error: {e}")
+    
+    # Additional validation with a different example (data_dict)
+    #data_dict = {
+    #    "Number of bedrooms": 3,
+    #    "Living area m²": 120,
+    #    "Equipped kitchen": 1,
+    #    "Furnished": 1,
+    #    "Swimming pool": 0,
+    #    "Building condition": "To restore",
+    #    "Region": "Wallonia",
+    #    "Property type": "apartment"
+    #}
+
+    #try:
+    #    print("Validating data_dict...")
+    #    validate_input(data_dict)
+    #    print("Validation successful for data_dict.")
+    #except ValueError as e:
+    #    print(f"Validation error for data_dict: {e}")

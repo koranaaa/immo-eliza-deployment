@@ -9,9 +9,9 @@ living_area_m2 = st.number_input("Living Area (m²)", min_value=0)
 equipped_kitchen = st.selectbox("Equipped Kitchen", ["Yes", "No"])
 furnished = st.selectbox("Furnished", ["Yes", "No"])
 swimming_pool = st.selectbox("Swimming Pool", ["Yes", "No"])
-building_condition = st.selectbox("Building Condition", ["to be done up", "to restore", "to renovate", "good", "as new"])
+building_condition = st.selectbox("Building Condition", ["To be done up", "To restore", "To renovate", "Good", "As new"])
 region = st.selectbox("Region", ["Flanders", "Wallonia", "Brussels"])
-property_type = st.selectbox("Type of Property", ["apartment", "house", "land", "office", "garage"])
+property_type = st.selectbox("Type of Property", ["apartment", "house"])
 
 # Convert selections to expected format
 data = {

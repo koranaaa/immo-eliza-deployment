@@ -11,7 +11,7 @@ app = FastAPI()
 
 class PropertyData(BaseModel):
     Number_of_bedrooms: int = Field(..., alias='Number of bedrooms')
-    Living_area_m2: int
+    Living_area_m2: int = Field(..., alias="Living area m²")
     Equipped_kitchen: int
     Furnished: int
     Swimming_pool: int
@@ -35,8 +35,11 @@ async def get_prediction(data: PropertyData):
 
     # check the data using validate_input
     #try:
-   #     validate_input(data_dict)
+    #    print("Validating input data...")
+    #    validate_input(data_dict)
+    #    print("Validation successful.")
     #except ValueError as e:
+    #    print(f"Validation error: {e}")
     #    raise HTTPException(status_code=400, detail=str(e))
     
     prediction = predict_price(data_dict)
@@ -44,7 +47,10 @@ async def get_prediction(data: PropertyData):
 
     # get a forecast using predict_price
     #try:
+    #    print("Making prediction...")
     #    prediction = predict_price(data_dict)
+    #    print("Prediction successful.")
     #    return {"prediction": prediction}
     #except Exception as e:
+    #    print(f"Prediction error: {e}")
     #    raise HTTPException(status_code=500, detail=str(e))
