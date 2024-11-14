@@ -29,7 +29,7 @@ data = {
 if st.button("Get Prediction"):
     try:
         # Send request to API
-        response = requests.post("http://http://127.0.0.1:8000/predict", json=data)  # Replace with your deployed API URL
+        response = requests.post("http://127.0.0.1:8000/predict", json=data)  # Replace with your deployed API URL
         if response.status_code == 200:
             prediction = response.json().get("prediction", "Error in prediction")
             st.write(f"Predicted Price: {prediction}")
