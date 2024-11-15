@@ -15,14 +15,14 @@ property_type = st.selectbox("Type of Property", ["apartment", "house"])
 
 # Convert selections to expected format
 data = {
-    "Number of bedrooms": number_of_bedrooms,  # Change key to match FastAPI expectation
-    "Living area m²": living_area_m2,         # Change key to match FastAPI expectation
-    "Equipped kitchen": 1 if equipped_kitchen == "Yes" else 0,
+    "Number of bedrooms": number_of_bedrooms,      
+    "Living area m²": living_area_m2,              
+    "Equipped_kitchen": 1 if equipped_kitchen == "Yes" else 0,
     "Furnished": 1 if furnished == "Yes" else 0,
-    "Swimming pool": 1 if swimming_pool == "Yes" else 0,
-    "Building condition": building_condition,
+    "Swimming_pool": 1 if swimming_pool == "Yes" else 0,
+    "Building_condition": building_condition,
     "Region": region,
-    "Property type": property_type
+    "Property_type": property_type
 }
 
 # Predict button
